@@ -1,26 +1,26 @@
 import axios from "axios"
 
+    
+export class ProdutoService{
     URL = "http://localhost:8080/produtos";
-export class ProdutoSerivce{
-   
 
     inserir(produto){
-        return axios.post(URL, produto);
+        return axios.post(this.URL, produto);
 
     }
 
     alterar(produto) {
-        return axios.put(URL, produto);
+        return axios.put(this.URL, produto);
 
     }
 
     excluir(id) {
-        return axios.delete(URL, id);
+        return axios.delete(this.URL, id);
 
     }
 
     listar() {
-        return axios.get(URL);
+        return axios.get(this.URL);
 
     }
 
