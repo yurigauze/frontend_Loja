@@ -17,6 +17,7 @@ const Menu = () => {
             <ul>
                 <li onClick={()=>navegar('/')}>Home</li>
                 <li onClick={()=>navegar('/produtos')}>Produtos</li>
+                <li onClick={() => navegar('/administrador')}>Administrador</li>
                 <li onClick={()=>setDark(!dark)}>Mudar Tema</li>
                 <li>{dark?'DARK':'LIGHT'}</li>
             </ul>

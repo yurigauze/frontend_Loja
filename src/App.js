@@ -6,6 +6,10 @@ import React, { useState, createContext } from 'react';
 import Home from './pages/home/home';
 import ProdutoFormulario from './pages/produto/formulario/ProdutoFormulario';
 import Produtolista from './pages/produto/lista/ProdutoLista';
+import EstadoFormulario from './pages/administrador/estado/formulario/EstadoFormulario';
+import Administrador from './pages/administrador/Administrador';
+import EstadoLista from './pages/administrador/estado/lista/EstadoLista';
+
 
 export const TemaContexto = createContext();
 
@@ -22,6 +26,9 @@ function App() {
             <Route exact path='/' Component={() => <Home />} />
             <Route path='/produto-formulario' Component={ProdutoFormulario} />
             <Route path='/produtos' Component={Produtolista} />
+            <Route path='/administrador' Component={Administrador}/>
+            <Route path='/estadoForm' Component={EstadoFormulario}/>
+            <Route path='/estados' Component={EstadoLista}/>
           </Routes>
         </BrowserRouter>
         <Rodape />
