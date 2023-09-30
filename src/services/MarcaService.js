@@ -1,10 +1,10 @@
 import axios from "axios"
 
-    
-export class ProdutoService{
-    URL = "http://localhost:8080/produtos";
 
-    inserir(produto){
+export class MarcaService {
+    URL = "http://localhost:8080/marca";
+
+    inserir(produto) {
         return axios.post(this.URL, produto);
 
     }
@@ -19,8 +19,9 @@ export class ProdutoService{
 
     }
 
-    listar(page, size) {
-        return axios.get(this.URL+"?page="+page+"&size="+size);
+    listar() {
+        console.log(this.URL);
+        return axios.get(this.URL);
 
     }
 

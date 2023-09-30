@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './EstadoFormulario.css';
 
 import { Button } from 'primereact/button';
@@ -14,6 +14,7 @@ const EstadoFormulario = (props) => {
     ///const { id } = location.state || {};
     //const { ii } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const { estadoAlterar } = location.state || {};
     const estadoNovo = { nome: '', sigla: '' };
     const [estado, setEstado] = useState(estadoNovo);
@@ -35,11 +36,14 @@ const EstadoFormulario = (props) => {
         if (estado.id) {
             estadoService.alterar(estado).then(data => {
                 console.log(data);
+              
             });
+            navigate("/estados");
         } else {
             estadoService.inserir(estado).then(data => {
                 console.log(data);
             });
+            navigate("/estados");
         }
 
     }

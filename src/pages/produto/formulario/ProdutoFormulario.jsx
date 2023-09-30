@@ -15,6 +15,7 @@ const ProdutoFormulario = (props) => {
     ///const { id } = location.state || {};
     //const { ii } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const { produtoAlterar } = location.state || {};
     const produtoNovo = { descricao: '', valor: 0, valorPromocional: 0 };
     const [produto, setProduto] = useState(produtoNovo);
@@ -37,10 +38,12 @@ const ProdutoFormulario = (props) => {
             produtoService.alterar(produto).then(data => {
                 console.log(data);
             });
+            navigate('/produtos');
         } else {
             produtoService.inserir(produto).then(data => {
                 console.log(data);
             });
+        navigate('/produtos');
         }
 
     }

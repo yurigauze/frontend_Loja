@@ -15,7 +15,7 @@ export class EstadoService {
     }
 
     excluir(id) {
-        return axios.delete(this.URL, id);
+        return axios.delete(this.URL + "/" + id);
 
     }
 
