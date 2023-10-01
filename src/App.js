@@ -11,6 +11,8 @@ import Administrador from './pages/administrador/Administrador';
 import EstadoLista from './pages/administrador/estado/lista/EstadoLista';
 import MarcaLista from './pages/administrador/marca/lista/MarcaLista';
 import MarcaFormulario from './pages/administrador/marca/formulario/MarcaFormulario';
+import CategoriaFormulario from './pages/administrador/categoria/formulario/CategoriaFormulario';
+import CategoriaLista from './pages/administrador/categoria/lista/CategoriaLista';
 
 
 export const TemaContexto = createContext();
@@ -33,6 +35,8 @@ function App() {
             <Route path='/estados' Component={EstadoLista}/>
             <Route path='/marcas' Component={MarcaLista} />
             <Route path='/marcaForm' Component={MarcaFormulario} />
+            <Route path='/categoria' Component={CategoriaLista}/>
+            <Route path='/categoriaForm' Component={CategoriaFormulario}/>
           </Routes>
         </BrowserRouter>
         <Rodape />

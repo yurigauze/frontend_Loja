@@ -62,7 +62,7 @@ const ProdutoLista = () => {
 	return (
 		<div className="container">
 			<h2>Lista de Produtos</h2>
-			<button onClick={formulario}>Novo Produto</button>
+			<Button label="Adicionar Produto" onClick={formulario}/>
 			<br /><br />
 			<DataTable value={produtos.content} tableStyle={{ minWidth: '50rem' }}>
 				<Column field="id" header="Id"></Column>

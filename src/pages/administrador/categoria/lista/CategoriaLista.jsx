@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from "react";
-import './MarcaLista.css';
+import './CategoriaLista.css';
 import { useNavigate } from "react-router-dom";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from "primereact/button";
-import { MarcaService } from "../../../../services/MarcaService";
+import { CategoriaService } from "../../../../services/CategoriaService";
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Paginator } from "primereact/paginator";
 
 
 
-const MarcaLista = () => {
+
+const CategoriaLista = () => {
     const navigate = useNavigate();
-    const [marcas, setMarcas] = useState([]);
+    const [categorias, setCategorias] = useState([]);
     const [idExcluir, setIdExcluir] = useState(null);
     const [dialogExcluir, setDialogExcluir] = useState(false);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(5);
     
-    const marcaService = new MarcaService();
+    const categoriaService = new CategoriaService();
 
    useEffect(() => {
-        buscarMarcas();
+        buscarCategorias();
     }, [first, rows]);
 
-    const buscarMarcas = () => {
-       marcaService.listar().then(data => {
-        setMarcas(data.data);
+    const buscarCategorias = () => {
+        const page = first/rows;
+       categoriaService.listar(page, rows).then(data => {
+        setCategorias(data.data);
        })
     }
 
     const formulario = () => {
-        navigate("/marcaForm");
+        navigate("/categoriaForm");
     }
 
     const onPageChange = (event) =>{
@@ -40,12 +42,12 @@ const MarcaLista = () => {
 	}
 
     const alterar = (rowData) => {
-        navigate("/marcaForm", { state:{marcaAlterar: rowData } })
+        navigate("/categoriaForm", { state:{categoriaAlterar: rowData } })
     }
 
             const excluir = () => {
-                marcaService.excluir(idExcluir).then(data => {
-                    buscarMarcas();
+                categoriaService.excluir(idExcluir).then(data => {
+                    buscarCategorias();
                 });
             }
 
@@ -61,13 +63,14 @@ const MarcaLista = () => {
 
     return (
         <div className="container">
-            <h2>Lista de Marcas</h2>
-            <Button label="Adicionar Marca" onClick={formulario}/>
+            <h2>Lista de Categorias</h2>
+            <Button label="Adicionar Categoria" onClick={formulario}/>
             <br /><br />
-            <DataTable value={marcas.content} tableStyle={{ minWidth: '50rem' }}>
+            <DataTable value={categorias.content} tableStyle={{ minWidth: '50rem' }}>
                 <Column field="id" header="ID"></Column>
                 <Column field="nome" header="Nome"></Column>
                 <Column field="dataCriacao" header="Data de Criacao"></Column>
+                <Column field="dataAtualizacao" header="Data de Atualização"></Column>
                 <Column header="Opções" body={optionColumn}></Column>
             </DataTable>
 
@@ -79,4 +82,4 @@ const MarcaLista = () => {
     );
 }
 
-export default MarcaLista;
+export default CategoriaLista;

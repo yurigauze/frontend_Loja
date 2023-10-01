@@ -10,7 +10,9 @@ export class MarcaService {
     }
 
     alterar(produto) {
+        console.log(produto);
         return axios.put(this.URL, produto);
+        
 
     }
 
@@ -19,9 +21,9 @@ export class MarcaService {
 
     }
 
-    listar() {
+    listar(page, size) {
         console.log(this.URL);
-        return axios.get(this.URL);
+        return axios.get(this.URL+"?page="+page+"&size="+size);
 
     }
 

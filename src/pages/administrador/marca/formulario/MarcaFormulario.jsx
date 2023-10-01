@@ -52,14 +52,10 @@ const MarcaFormulario = (props) => {
         <div style={{ padding: '10px' }}>
             <h2>Inserir ou Alterar um Marca</h2>
             <div className="nomeMarca">
-                <p>Nome do Marca</p>
+                <p>Nome da Marca</p>
                 <InputText type="text" placeholder="Nome" name="nome" value={marca.nome} onChange={alterarValor} /> <br></br>
             </div>
 
-            <div className="ufMarca">
-                <p>UF do Marca</p>
-                <InputText placeholder="Sigla" name="sigla" value={marca.sigla} onChange={alterarValor} /> <br></br>
-            </div>
             <br></br>
             <Button label="Salvar" onClick={salvar} />
         </div>
