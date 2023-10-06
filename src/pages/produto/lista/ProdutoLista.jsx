@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import './ProdutoLista.css';
 import { useNavigate } from "react-router-dom";
 import { ProdutoService } from "../../../services/ProdutoService";
@@ -7,7 +7,7 @@ import { Column } from 'primereact/column';
 import { Button } from "primereact/button";
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Paginator } from 'primereact/paginator';
-
+import { Toast } from 'primereact/toast';
 
 const ProdutoLista = () => {
 	const navigate = useNavigate();
@@ -17,10 +17,19 @@ const ProdutoLista = () => {
 	const [dialogExcluir, setDialogExcluir] = useState(false);
 	const [first, setFirst] = useState(0);
 	const [rows, setRows] = useState(5);
+	const toast = useRef(null);
+	
 
 	useEffect(() => {
 		buscarProdutos();
 	}, [first, rows]);
+
+	const showError = () => {
+		toast.current.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao buscar lista ', life: 3000 });
+	}
+	const showWarn = () => {
+		toast.current.show({ severity: 'warn', summary: 'Atenção', detail: 'Lista Vazia', life: 3000 });
+	}
 
 	const onPageChange = (event) =>{
 		setFirst(event.first);
@@ -28,10 +37,20 @@ const ProdutoLista = () => {
 	}
 
 	const buscarProdutos = () => {
-		const page = first/rows;
-		produtoService.listar(page, rows).then(data => {
-			setProdutos(data.data);
-		})
+		try {
+			const page = first / rows;
+			produtoService.listar(page, rows).then(data => {
+				if (data.data.length === 0) {
+					showWarn(); 
+				} else {
+					setProdutos(data.data);
+				}
+			}).catch(error => {
+				showError();
+			});
+		} catch (error) {
+			showError(); 
+		}
 	}
 
 	const formulario = () => {

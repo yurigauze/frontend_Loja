@@ -17,9 +17,11 @@ const Administrador = () => {
             <p>Conteúdo....</p>
             <div className="lista">
                 <ul>
+                    <li onClick={() => navegar('/pais')}>Pais</li>
                     <li onClick={() => navegar('/estados')}>Estados</li>
                     <li onClick={() => navegar('/marcas')}>Marcas</li>
                     <li onClick={() => navegar('/categoria')}>Categoria</li>
+
 
                 </ul>
             </div>
