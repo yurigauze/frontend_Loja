@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import './EstadoLista.css';
+import './CidadeLista.css';
 import { useNavigate } from "react-router-dom";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from "primereact/button";
-import { EstadoService } from "../../../../services/EstadoService";
+import { CidadeService } from "../../../../services/CidadeService";
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Paginator } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 
 
-const EstadoLista = () => {
+const CidadeLista = () => {
     const navigate = useNavigate();
-    const [estados, setEstados] = useState([]);
+    const [cidades, setCidades] = useState([]);
     const [idExcluir, setIdExcluir] = useState(null);
     const [dialogExcluir, setDialogExcluir] = useState(false);
     const [first, setFirst] = useState(0);
@@ -20,17 +20,17 @@ const EstadoLista = () => {
     const toast = useRef(null);
     
 
-    const estadoService = new EstadoService();
+    const cidadeService = new CidadeService();
 
     useEffect(() => {
-        buscarEstados();
+        buscarCidades();
     }, [first, rows]);
 
     const showToast = (descricao, severity) => {
         if (toast.current) {
             toast.current.show({
                 severity: severity,
-                summary: 'Estado Excluído',
+                summary: 'Cidade Excluída',
                 detail: descricao,
                 life: 5000,
             });
@@ -42,26 +42,26 @@ const EstadoLista = () => {
 		setRows(event.rows);
 	}
 
-     const buscarEstados = () => {
+     const buscarCidades = () => {
         const page = first/rows;
-		estadoService.listar(page, rows).then(data => {
-			setEstados(data.data);
+		cidadeService.listar(page, rows).then(data => {
+			setCidades(data.data);
 		})
     }
         
 
     const formulario = () => {
-        navigate("/estadoForm");
+        navigate("/cidadeForm");
     }
 
     const alterar = (rowData) => {
-        navigate("/estadoForm", { state:{estadoAlterar: rowData } })
+        navigate("/cidadeForm", { state:{cidadeAlterar: rowData } })
     }
 
     const excluir = () => {
-                estadoService.excluir(idExcluir).then(data => {
-                    showToast("Estado excluído com sucesso", "info");
-                    buscarEstados();
+                cidadeService.excluir(idExcluir).then(data => {
+                    showToast("Cidade excluído com sucesso", "info");
+                    buscarCidades();
                 });
             }
 
@@ -77,13 +77,12 @@ const EstadoLista = () => {
 
     return (
         <div className="container">
-            <h2>Lista de Estados</h2>
-            <Button label="Adicionar Estado" onClick={formulario}/>
+            <h2>Lista de Cidades</h2>
+            <Button label="Adicionar Cidade" onClick={formulario}/>
             <br /><br />
-            <DataTable value={estados.content} tableStyle={{ minWidth: '50rem' }}>
+            <DataTable value={cidades.content} tableStyle={{ minWidth: '50rem' }}>
                 <Column field="id" header="ID"></Column>
                 <Column field="nome" header="Nome"></Column>
-                <Column field="sigla" header="Sigla" min></Column>
                 <Column field="dataCriacao" header="Data de Criacao"></Column>
                 <Column header="Opções" body={optionColumn}></Column>
             </DataTable>
@@ -98,4 +97,4 @@ const EstadoLista = () => {
 }
 
 
-export default EstadoLista;
+export default CidadeLista;

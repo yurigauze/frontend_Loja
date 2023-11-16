@@ -15,6 +15,8 @@ import CategoriaFormulario from './pages/administrador/categoria/formulario/Cate
 import CategoriaLista from './pages/administrador/categoria/lista/CategoriaLista';
 import PaisLista from './pages/administrador/pais/lista/PaisLista';
 import PaisFormulario from './pages/administrador/pais/formulario/PaisFormulario';
+import CidadeFormulario from './pages/administrador/cidade/formulario/CidadeFormulario';
+import CidadeLista from './pages/administrador/cidade/lista/CidadeLista';
 
 
 export const TemaContexto = createContext();
@@ -41,6 +43,8 @@ function App() {
             <Route path='/categoripaisForm' Component={CategoriaFormulario}/>
             <Route path='/paisForm' Component={PaisFormulario} />
             <Route path='/pais' Component={PaisLista} />
+            <Route path='cidadeForm' Component={CidadeFormulario} />
+            <Route path='/cidade' Component={CidadeLista} />
           </Routes>
         </BrowserRouter>
         <Rodape />

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import './ProdutoFormulario.css';
 import { ProdutoService } from "../../../services/ProdutoService";
-
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
@@ -10,10 +9,6 @@ import { InputNumber } from 'primereact/inputnumber';
 
 
 const ProdutoFormulario = (props) => {
-    //const navigate = useNavigate();
-    //const location = useLocation();
-    ///const { id } = location.state || {};
-    //const { ii } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
     const { produtoAlterar } = location.state || {};
@@ -53,7 +48,7 @@ const ProdutoFormulario = (props) => {
             <h2>Inserir ou Alterar um Produto</h2>
             <div className="nomeProduto">
                 <p>Descrição do Produto</p>
-                <InputText type="text" name="descricao" placeholder="Descrição"  value={produto.descricao} onChange={alterarValor} /> <br></br>
+                <InputText type="text"  name="descricao" placeholder="Descrição"  value={produto.descricao} onChange={alterarValor} /> <br></br>
             </div>
 
             <div className="valorProduto">

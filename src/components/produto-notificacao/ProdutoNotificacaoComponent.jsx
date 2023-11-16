@@ -11,15 +11,24 @@ const ProdutoNotificacao = () => {
     useEffect(() => {
         const socket = new SockJS('http://localhost:8080/ws');
         const stomp = Stomp.over(socket);
+        
         stomp.connect({}, () => {
             setClienteStomp(stomp);
-            stomp.subscribe('/produto/novo-produto', (message) => {
+    
+            const subscription = stomp.subscribe('/produto/novo-produto', (message) => {
                 const notificationData = JSON.parse(message.body);
                 setUltimaNotificacao(notificationData);
                 showToast(notificationData.descricao);
             });
+    
+            return () => {
+                // Limpar assinatura ao desmontar
+                subscription.unsubscribe();
+            };
         });
     }, []);
+    
+    
 
     const showToast = (descricao) => {
         toast.current.show({

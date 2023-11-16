@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './PaisLista.css';
 import { useNavigate } from "react-router-dom";
 import { DataTable } from 'primereact/datatable';
@@ -7,6 +7,7 @@ import { Button } from "primereact/button";
 import { PaisService } from "../../../../services/PaisService";
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Paginator } from 'primereact/paginator';
+import { Toast } from 'primereact/toast';
 
 
 const PaisLista = () => {
@@ -16,6 +17,7 @@ const PaisLista = () => {
     const [dialogExcluir, setDialogExcluir] = useState(false);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(5);
+    const toast = useRef(null);
     
 
     const paisService = new PaisService();
@@ -24,6 +26,16 @@ const PaisLista = () => {
         buscarPaiss();
     }, [first, rows]);
 
+    const showToast = (descricao, severity) => {
+        if (toast.current) {
+            toast.current.show({
+                severity: severity,
+                summary: 'Pais Excluído',
+                detail: descricao,
+                life: 5000,
+            });
+        }
+    };
     const onPageChange = (event) =>{
 		setFirst(event.first);
 		setRows(event.rows);
@@ -47,6 +59,7 @@ const PaisLista = () => {
 
     const excluir = () => {
                 paisService.excluir(idExcluir).then(data => {
+                    showToast("Pais excluído com sucesso", "info");
                     buscarPaiss();
                 });
             }
@@ -75,7 +88,7 @@ const PaisLista = () => {
             </DataTable>
 
             <Paginator first={first} rows={rows} totalRecords={120} rowsPerPageOptions={[5, 10, 20, 30]} onPageChange={onPageChange} />
-
+            <Toast ref={toast} />
             <ConfirmDialog visible={dialogExcluir} onHide={() => setDialogExcluir(false)} message="Deseja excluir?"
                 header="Confirmação" icon="pi pi-exclamation-triangle" accept={excluir} reject={() => setIdExcluir(null)} acceptLabel="Sim" rejectLabel="Não" />
         </div>
